@@ -1,0 +1,20 @@
+{% extends 'main.html'%}
+{% block content %}
+  <main class="profile-page layout layout--3">
+    <div class="container">
+      <!-- Topics Start -->
+      {% include 'topics_comp.html' %}
+      <!-- Topics End -->
+
+      <!-- Room List Start -->
+      <div class="roomList">
+        {% include 'roomlist_comp.html'%}
+      </div>
+      <!-- Room List End -->
+
+      <!-- Activities Start -->
+      {%include 'activity_comp.html'%}
+      <!-- Activities End -->
+    </div>
+  </main>
+{% endblock %}
