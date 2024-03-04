@@ -11,7 +11,7 @@ from .forms import RoomForm
 # Create your views here.
 
 def home(request):
-    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    q = request.GET.get('q', '')
 
     rooms = Room.objects.filter(
         Q(topic__name__icontains=q) |
