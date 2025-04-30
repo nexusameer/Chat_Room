@@ -15,7 +15,7 @@ jobs:
       - name: Set up Git configuration
         run: |
           git config --global user.name "nexusameer"
-          git config --global user.email "ameerk10fw.com"
+          git config --global user.email "ameerk10fw@gmail.com"
 
       - name: Commit 10 times for each day from 2024-01-01 to today
         env:
