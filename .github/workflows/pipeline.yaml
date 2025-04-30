@@ -1,38 +1,15 @@
-name: Push 10 commits for each day from 2024-01-01 to today
+name: Test GitHub Token Clone
 
 on:
-  workflow_dispatch:  # Allows manual trigger
+  workflow_dispatch:
 
 jobs:
-  commit_push:
+  test-clone:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Git configuration
-        run: |
-          git config --global user.name "nexusameer"
-          git config --global user.email "ameerk10fw@gmail.com"
-
-      - name: Commit 10 times for each day from 2024-01-01 to today
+      - name: Clone repository using GH_TOKEN
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          current_date=$(date --utc +'%Y-%m-%d')
-          start_date="2024-01-01"
-          start_epoch=$(date -d $start_date +%s)
-          current_epoch=$(date -d $current_date +%s)
-          days_diff=$(( (current_epoch - start_epoch) / 86400 ))
-
-          for day in $(seq 0 $days_diff); do
-            commit_date=$(date -d "$start_date +$day days" --utc +'%a, %d %b %Y %H:%M:%S GMT')
-
-            for i in {1..10}; do
-              echo "Commit #$i for $commit_date" >> commit.txt
-              git add commit.txt
-              GIT_COMMITTER_DATE="$commit_date" git commit --date "$commit_date" -m "Automated commit #$i for $commit_date"
-              git push https://x-access-token:${GH_TOKEN}@github.com/nexusameer/Chat_Room.git main
-            done
-          done
+          git clone https://x-access-token:${GH_TOKEN}@github.com/nexusameer/Chat_Room.git
