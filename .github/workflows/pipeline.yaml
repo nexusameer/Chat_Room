@@ -1,0 +1,41 @@
+name: Push 10 commits for each day from 2024-01-01 to today
+
+on:
+  workflow_dispatch:  # This allows you to manually trigger the workflow
+
+jobs:
+  commit_push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Git configuration
+        run: |
+          git config --global user.name "nexusameer"
+          git config --global user.email "ameerk10fw.com"
+
+      - name: Commit 10 times for each day from 2024-01-01 to today
+        run: |
+          # Get the current date and calculate the number of days since 2024-01-01
+          current_date=$(date --utc +'%Y-%m-%d')
+          start_date="2024-01-01"
+          start_epoch=$(date -d $start_date +%s)
+          current_epoch=$(date -d $current_date +%s)
+          days_diff=$(( (current_epoch - start_epoch) / 86400 ))
+
+          # Loop over each day from 2024-01-01 to today
+          for day in $(seq 0 $days_diff); do
+            # Get the date for this specific day
+            commit_date=$(date -d "$start_date +$day days" --utc +'%a, %d %b %Y %H:%M:%S GMT')
+
+            # Make 10 commits for this specific day
+            for i in {1..10}; do
+              echo "Commit #$i for $commit_date" >> commit.txt
+              git add commit.txt
+              # Set the commit date to the calculated date and commit
+              GIT_COMMITTER_DATE="$commit_date" git commit --date "$commit_date" -m "Automated commit #$i for $commit_date"
+              git push origin main
+            done
+          done
