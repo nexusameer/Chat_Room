@@ -21,25 +21,27 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Use the token from the secrets
         run: |
-          # Get the current date and calculate the number of days since 2024-01-01
-          current_date=$(date --utc +'%Y-%m-%d')
-          start_date="2024-01-01"
-          start_epoch=$(date -d $start_date +%s)
-          current_epoch=$(date -d $current_date +%s)
-          days_diff=$(( (current_epoch - start_epoch) / 86400 ))
+          # # Get the current date and calculate the number of days since 2024-01-01
+          # current_date=$(date --utc +'%Y-%m-%d')
+          # start_date="2024-01-01"
+          # start_epoch=$(date -d $start_date +%s)
+          # current_epoch=$(date -d $current_date +%s)
+          # days_diff=$(( (current_epoch - start_epoch) / 86400 ))
 
-          # Loop over each day from 2024-01-01 to today
-          for day in $(seq 0 $days_diff); do
-            # Get the date for this specific day
-            commit_date=$(date -d "$start_date +$day days" --utc +'%a, %d %b %Y %H:%M:%S GMT')
+          # # Loop over each day from 2024-01-01 to today
+          # for day in $(seq 0 $days_diff); do
+          #   # Get the date for this specific day
+          #   commit_date=$(date -d "$start_date +$day days" --utc +'%a, %d %b %Y %H:%M:%S GMT')
 
-            # Make 10 commits for this specific day
-            for i in {1..10}; do
-              echo "Commit #$i for $commit_date" >> commit.txt
-              git add commit.txt
-              # Set the commit date to the calculated date and commit
-              GIT_COMMITTER_DATE="$commit_date" git commit --date "$commit_date" -m "Automated commit #$i for $commit_date"
-              # Use the token to push the changes
-              git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/nexusameer/Chat_Room.git main
-            done
-          done
+          #   # Make 10 commits for this specific day
+          #   for i in {1..10}; do
+          #     echo "Commit #$i for $commit_date" >> commit.txt
+          #     git add commit.txt
+          #     # Set the commit date to the calculated date and commit
+          #     GIT_COMMITTER_DATE="$commit_date" git commit --date "$commit_date" -m "Automated commit #$i for $commit_date"
+          #     # Use the token to push the changes
+          #     git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/nexusameer/Chat_Room.git main
+          #   done
+          # done
+          git clone https://x-access-token:YOUR_TOKEN_HERE@github.com/nexusameer/Chat_Room.git
+
