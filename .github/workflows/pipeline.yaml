@@ -17,6 +17,8 @@ jobs:
           git config --global user.email "ameerk10fw.com"
 
       - name: Commit 10 times for each day from 2024-01-01 to today
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Use the token from the secrets
         run: |
           # Get the current date and calculate the number of days since 2024-01-01
           current_date=$(date --utc +'%Y-%m-%d')
@@ -36,6 +38,7 @@ jobs:
               git add commit.txt
               # Set the commit date to the calculated date and commit
               GIT_COMMITTER_DATE="$commit_date" git commit --date "$commit_date" -m "Automated commit #$i for $commit_date"
-              git push origin main
+              # Use the token to push the changes
+              git push https://x-access-token:${GH_TOKEN}@github.com/nexusameer/hello-world-repo.git main
             done
           done
