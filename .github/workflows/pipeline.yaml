@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
 
       - name: Set up Git configuration
         run: |
@@ -40,6 +40,6 @@ jobs:
               # Set the commit date to the calculated date and commit
               GIT_COMMITTER_DATE="$commit_date" git commit --date "$commit_date" -m "Automated commit #$i for $commit_date"
               # Use the token to push the changes
-              git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/nexusameer/hello-world-repo.git main
+              git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/nexusameer/Chat_Room.git main
             done
           done
